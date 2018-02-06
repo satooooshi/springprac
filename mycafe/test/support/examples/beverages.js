@@ -1,5 +1,8 @@
 'use strict';
 
+//beverage.js
+//beverage factory
+
 module.exports = {
   expresso: function () {
     return {

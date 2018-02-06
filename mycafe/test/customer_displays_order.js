@@ -38,7 +38,7 @@ describe('Customer displays order', function () {
       return expect(this.result).to
           .eventually.have.property('totalPrice').that.is.equal(0);
     });
-    it('will only be possible to add a beverage', function () {
+    it('will only be possible to add a beverage ,or cant do any other operations like edit', function () {
       return expect(this.result).to.eventually
           .have.property('actions')
           .that.is.deep.equal([

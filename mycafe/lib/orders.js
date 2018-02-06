@@ -2,13 +2,18 @@
 
 var Q = require('q');
 
-function totalPriceFor(items) {
-  return items.reduce(function (total, item) {
-    return total + item.beverage.price * item.quantity;
-  }, 0);
-}
+//used for this.result in customer_display.js
+
 function asOrder(orderId) {
+
+  function totalPriceFor(items) {
+    return items.reduce(function (total, item) {
+      return total + item.beverage.price * item.quantity;
+    }, 0);
+  }
+
   function actionsFor(items) {
+
     var actions = [
       {
         action: 'append-beverage',
@@ -19,7 +24,10 @@ function asOrder(orderId) {
         }
       }
     ];
+
     items.forEach(function (item) {
+      //push into actions array[] above
+      //push() メソッドは、配列の末尾に 1 つ以上の要素を追加
       actions.push({
         action: 'edit-beverage',
         target: orderId,
@@ -69,6 +77,7 @@ module.exports = function (daos) {
               data: []
             });
           }).then(function () {
+            //console.log(order);
             return order;
           });
     };
