@@ -23,7 +23,10 @@ orderSystemWith = require('../lib/orders');
          this.result = this.orderSystem.display(this.orderId);
        });
 
-       it('will show no order items');
+       it('will show no order items', function () {
+         expect(this.result).to.have.property('items')
+         .that.is.empty;
+       });
        it('will show 0 as total price');
        it('will only be possible to add a beverage');
       });
