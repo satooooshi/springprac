@@ -15,6 +15,7 @@ chai.use(require("chai-as-promised"));
        this.orderSystem = orderSystemWith(this.orderDAO);
      });
      context('Given that the order is empty', function () {
+       /*
        beforeEach(function () {
          //
          //In Mocha, the this keyword will point to the same object throughout all the test
@@ -27,6 +28,15 @@ chai.use(require("chai-as-promised"));
          //The important point here is that
          //the tests force us to model the shape of the object we return as a response.
          this.result = this.orderSystem.display(this.orderId);
+
+       });
+       */
+       beforeEach(function () {
+         orderId = 'some empty order id';
+         this.orderDAO.byId
+         .withArgs(orderId)
+         .returns(promiseFor([]));
+         this.result = this.orderSystem.display(orderId);
        });
        //
        //define a response that will be a simple JSON object
