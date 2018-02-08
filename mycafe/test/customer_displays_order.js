@@ -3,26 +3,34 @@
 var chai = require('chai'),
 expect = chai.expect,
 sinon = require('sinon'),
+newStorage = require('./support/storageDouble'),
 orderSystemWith = require('../lib/orders');
 
 chai.use(require("chai-as-promised"));
 var Q = require('q');
 
    describe('Customer displays order', function () {
-
+     /*
      beforeEach(function () {
        this.orderDAO = {
          byId: sinon.stub()
        };
        this.orderSystem = orderSystemWith(this.orderDAO);
      });
+     */
+      beforeEach(function () {
+       this.orderStorage = newStorage();
+       this.orderSystem = orderSystemWith(this.orderStorage.dao());
+      });
      context('Given that the order is empty', function () {
        /*
+       //ver.1 simple system
        beforeEach(function () {
          //
          //In Mocha, the this keyword will point to the same object throughout all the test
          this.orderId = 'some empty order id';
          //
+         //orderDAOにorderを保存すると仮定
          //withArgsでsinon.stub()のargsを指定
          //returnsで指定したargsのreturnを指定
          this.orderDAO.byId.withArgs(this.orderId).returns([]);
@@ -33,6 +41,8 @@ var Q = require('q');
 
        });
        */
+       /*
+       //ver.2 , apply async system
        beforeEach(function () {
          this.orderId = 'some empty order id';
          this.orderDAO.byId
@@ -40,6 +50,15 @@ var Q = require('q');
          .returns(promiseFor([]));
          this.result = this.orderSystem.display(this.orderId);
        });
+       */
+       //ver.3 use tenative DAO in storageDouble.js
+        beforeEach(function () {
+            this.order = this.orderStorage.alreadyContains({
+              id: 'some empty order id',
+              data: []
+            });
+            this.result = this.orderSystem.display(this.order.id);
+         });
        //
        //define a response that will be a simple JSON object
        //with the items, totalPrice, and actions fields.
@@ -66,7 +85,7 @@ var Q = require('q');
         .that.is.deep.equal([
           {
           action: 'append-beverage',
-               target: this.orderId,//target:'some empty order id'
+               target: this.order.id,//target:'some empty order id'
                parameters: {
                  beverageRef: null,
                  quantity: 0 }
@@ -79,6 +98,7 @@ var Q = require('q');
         //We simply stored the setup data in the runtime context
         //so that we can reference it from both the tests and the setup.
         //
+        /*
         beforeEach(function () {
           this.orderId = 'some non empty order id';
           this.expresso = {
@@ -95,13 +115,25 @@ var Q = require('q');
             { beverage: this.expresso, quantity: 1},
             { beverage: this.mocaccino, quantity: 2}
           ];
+  //---------------------------------------------------------------------------
+          //
+          //store order information in the DAO.
           this.orderDAO.byId
            .withArgs(this.orderId)
            //
            //returns の Async ver.
            .callsArgWithAsync(1, null, this.orderItems);
+  //---------------------------------------------------------------------------
        this.result = this.orderSystem.display(this.orderId);
        });
+       */
+       beforeEach(function () {
+           this.order = this.orderStorage.alreadyContains({
+             id: 'some empty order id',
+             data: []
+           });
+           this.result = this.orderSystem.display(this.order.id);
+        });
        //
        //its below are all pending
        //
