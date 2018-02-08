@@ -8,7 +8,9 @@ var Q = require('q');
    module.exports = function () {
      return {
        display: function (orderId) {
-         return Q.fulfill({
+         return Q.fulfill(
+
+           {
            items: [],
            totalPrice: 0,
            actions: [
@@ -17,7 +19,44 @@ var Q = require('q');
                target: orderId,
                parameters: {
                  beverageRef: null,
-                 quantity: 0 }
-               } ]
-             }); }
+                 quantity: 0
+                  }
+               }
+             ]
+           }
+   //---------------------------------------------------------------------------
+   /*
+            {
+              items: [
+                {
+                  beverage: {
+                    id: "expresso id",
+                    name: "Expresso",
+                    price: 1.50
+                     },
+                  quantity: 1},
+                {
+                  beverage: {
+                    id: "mocaccino id",
+                    name: "Mocaccino",
+                    price: 2.30
+                     },
+                  quantity: 2
+                }
+              ],
+              totalPrice: 6.1,
+              actions: [
+                {
+                  action: 'append-beverage',
+                  target: orderId,
+                  parameters: {
+                    beverageRef: null,
+                    quantity: 0 }
+                },
+              ]
+              }
+      */
+//---------------------------------------------------------------------------
+
+           ); }
            }; };

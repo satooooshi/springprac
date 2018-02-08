@@ -62,7 +62,7 @@ var Q = require('q');
          .that.is.equal(0);
        });
        it('will only be possible to add a beverage', function(){
-         return expect(this.result).to.have.eventually.have.property('actions')
+         return expect(this.result).to.eventually.have.property('actions')
         .that.is.deep.equal([
           {
           action: 'append-beverage',
@@ -75,37 +75,44 @@ var Q = require('q');
        });
       });
       context('Given that the order contains beverages', function() {
+        //
+        //We simply stored the setup data in the runtime context
+        //so that we can reference it from both the tests and the setup.
+        //
         beforeEach(function () {
           this.orderId = 'some non empty order id';
+          this.expresso = {
+            id: "expresso id",
+            name: "Expresso",
+            price: 1.50
+          };
+          this.mocaccino = {
+            id: "mocaccino id",
+            name: "Mocaccino",
+            price: 2.30
+          };
+          this.orderItems = [
+            { beverage: this.expresso, quantity: 1},
+            { beverage: this.mocaccino, quantity: 2}
+          ];
           this.orderDAO.byId
            .withArgs(this.orderId)
            //
            //returns の Async ver.
-           .callsArgWithAsync(1, null, [
-             {
-               beverage: {
-                 id: "expresso id",
-                 name: "Expresso",
-                 price: 1.50
-               },
-               quantity: 1
-             },
-             {
-               beverage: {
-                 id: "mocaccino id",
-                 name: "Mocaccino",
-                 price: 2.30
-               },
-               quantity: 2
-             }
-           ]);
+           .callsArgWithAsync(1, null, this.orderItems);
        this.result = this.orderSystem.display(this.orderId);
        });
        //
        //its below are all pending
        //
-       it('will show one item per beverage');
-       it('will show the sum of the unit prices as total price');
+       it('will show one item per beverage', function(){
+         return expect(this.result).to.eventually.have.property('items')
+          .that.is.deep.equal(this.orderItems);
+       });
+       it('will show the sum of the unit prices as total price', function(){
+         return expect(this.result).to.eventually.have.property('totalPrice')
+          .that.is.equal(6.10);
+       });
        it('will be possible to place the order');
        it('will be possible to add a beverage');
        it('will be possible to remove a beverage');
