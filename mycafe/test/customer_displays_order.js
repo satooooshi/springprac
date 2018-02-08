@@ -14,11 +14,15 @@ orderSystemWith = require('../lib/orders');
      });
      context('Given that the order is empty', function () {
        beforeEach(function () {
+         //In Mocha, the this keyword will point to the same object throughout all the test
          this.orderId = 'some empty order id';
+         //
+         //withArgsでsinon.stub()のargsを指定
+         //returnsで指定したargsのreturnを指定
          this.orderDAO.byId.withArgs(this.orderId).returns([]);
          this.result = this.orderSystem.display(this.orderId);
        });
-       
+
        it('will show no order items');
        it('will show 0 as total price');
        it('will only be possible to add a beverage');
