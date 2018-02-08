@@ -75,6 +75,35 @@ var Q = require('q');
        });
       });
       context('Given that the order contains beverages', function() {
+        beforeEach(function () {
+          this.orderId = 'some non empty order id';
+          this.orderDAO.byId
+           .withArgs(this.orderId)
+           //
+           //returns の Async ver.
+           .callsArgWithAsync(1, null, [
+             {
+               beverage: {
+                 id: "expresso id",
+                 name: "Expresso",
+                 price: 1.50
+               },
+               quantity: 1
+             },
+             {
+               beverage: {
+                 id: "mocaccino id",
+                 name: "Mocaccino",
+                 price: 2.30
+               },
+               quantity: 2
+             }
+           ]);
+       this.result = this.orderSystem.display(this.orderId);
+       });
+       //
+       //its below are all pending
+       //
        it('will show one item per beverage');
        it('will show the sum of the unit prices as total price');
        it('will be possible to place the order');
