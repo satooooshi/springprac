@@ -11,7 +11,9 @@ function asOrder(orderId) {
       return total + item.beverage.price * item.quantity;
     }, 0);
   }
-
+//
+//Only avairable actions will be contained in here
+//Ex. empty order only cotains append-beverage action AVAIRABLE
   function actionsFor(items) {
 
     var actions = [

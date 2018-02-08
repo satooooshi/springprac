@@ -16,6 +16,11 @@ function asOrderItem(itemExample) {
 }
 
 module.exports = {
+  //
+  //
+  //export array[] of functions
+  //
+  //
   empty: function () {
     return {
       id: "<empty order>",

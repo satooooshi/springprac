@@ -12,6 +12,11 @@ chai.use(require("chai-as-promised"));
 
 describe('Customer displays order', function () {
   beforeEach(function () {
+    //
+    //
+    //set up and input using lib/orders.js
+    //
+    //
     this.orderStorage = newStorage();
     this.messageStorage = newStorage();
     this.orderSystem = orderSystemWith({
@@ -21,13 +26,24 @@ describe('Customer displays order', function () {
   });
   context('Given that the order is empty', function () {
     beforeEach(function () {
+      //
+      //
+      //countinue set up and assumed
+      // input using lib/orders.js
+      //
+      //
+      //order.empty()でstorageDoubleを使ってIdentidierと結びつける
       this.order = this.orderStorage.alreadyContains(order.empty());
       this.messages = this.messageStorage.alreadyContains({
         id: this.order.id,
         data: []
       });
       this.messageStorage.updateWillNotFail();
-
+      //
+      //
+      //create order object(this.result) using test/examples/*.js
+      //
+      //
       this.result = this.orderSystem.display(this.order.id);
     });
     it('will show no order items', function () {
@@ -41,6 +57,9 @@ describe('Customer displays order', function () {
     it('will only be possible to add a beverage ,or cant do any other operations like edit', function () {
       return expect(this.result).to.eventually
           .have.property('actions')
+          //
+          //Empty order only can GENERAGE append-beverage action AVAIRABLE
+          //
           .that.is.deep.equal([
             {
               action: 'append-beverage',
@@ -80,6 +99,11 @@ describe('Customer displays order', function () {
       it('will be possible to place the order', function () {
         return expect(this.result).to.eventually
             .have.property('actions')
+            //
+            //
+            //create (this.orderActions.place()) from order factory
+            //
+            //
             .that.include(this.orderActions.place());
       });
       it('will be possible to add a beverage', function () {
@@ -125,6 +149,9 @@ describe('Customer displays order', function () {
   function scenarioOrderHasPendingMessages(testExample) {
     context('Given that the order has pending the following messages: ' + testExample.title, function () {
       beforeEach(function () {
+        //
+        //create assumed inputs
+        //
         this.order = this.orderStorage.alreadyContains(order.empty());
         this.messages = this.messageStorage.alreadyContains({
           id: this.order.id,
