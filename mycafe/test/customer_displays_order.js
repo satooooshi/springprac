@@ -6,8 +6,10 @@ sinon = require('sinon'),
 orderSystemWith = require('../lib/orders');
 
 chai.use(require("chai-as-promised"));
+var Q = require('q');
 
    describe('Customer displays order', function () {
+
      beforeEach(function () {
        this.orderDAO = {
          byId: sinon.stub()
@@ -32,11 +34,11 @@ chai.use(require("chai-as-promised"));
        });
        */
        beforeEach(function () {
-         orderId = 'some empty order id';
+         this.orderId = 'some empty order id';
          this.orderDAO.byId
-         .withArgs(orderId)
+         .withArgs(this.orderId)
          .returns(promiseFor([]));
-         this.result = this.orderSystem.display(orderId);
+         this.result = this.orderSystem.display(this.orderId);
        });
        //
        //define a response that will be a simple JSON object
@@ -64,7 +66,7 @@ chai.use(require("chai-as-promised"));
         .that.is.deep.equal([
           {
           action: 'append-beverage',
-               target: orderId,
+               target: this.orderId,//target:'some empty order id'
                parameters: {
                  beverageRef: null,
                  quantity: 0 }
