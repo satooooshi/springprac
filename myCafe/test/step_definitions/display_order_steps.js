@@ -14,8 +14,8 @@ module.exports = function () {
       Then = this.Then;
 
   this.World = require("../support/world.js");
-
-     Given(/^that the order is empty$/, function (cb) {
+      //Given(/.../,stepHandler)
+     Given(/^that the order is empty$/, sugar(function () {
       // In Cucumber.js, all the step handler functions are executed with a special object,
       //called the World, as a runtime context.
       //So, whenever we reference this inside a function handler,
@@ -31,29 +31,22 @@ module.exports = function () {
        //cb.pending()--indicating that the step is not yet ready to be implemented properly.
        //cb(falthy)--indicate that the step is executed without errors
        //cb(truthy), cb.fail(errormessage)--indicating that there was an error or an assertion failed
-        cb();
-     });
-     When(/^the customer displays the order$/, function (cb) {
+     }));
+     When(/^the customer displays the order$/, sugar(function () {
        this.result = this.orderSystem.display(this.order.id);
-       cb();
-     });
-     Then(/^no order items will be shown$/, function (cb) {
+     }));
+     Then(/^no order items will be shown$/, sugar(function () {
 
        expect(this.result).to.eventually
-         .have.property('items').that.is.empty
-         .then(function (ignoredItems) {
-           cb();
-         }, cb);
-     });
+         .have.property('items').that.is.equal(1);
+
+     }));
      Then(/^"([^"]*)" will be shown as total price$/,
-     function(expectedTotalPrice, cb) {
+     sugar(function(expectedTotalPrice, cb) {
        expect(this.result).to.eventually.have.property('totalPrice')
         .that.is.equal(Number(expectedTotalPrice))
-        .then(function (ignored) {
-          cb();
-        }, cb);
-     });
-     Then(/^there will only be possible to add a beverage$/, function (cb) {
+     }));
+     Then(/^there will only be possible to add a beverage$/, sugar(function () {
        expect(this.result).to.eventually
          .have.property('actions')
          .that.is.deep.equal([
@@ -63,11 +56,8 @@ module.exports = function () {
              parameters: {
                beverageRef: null,
                quantity: 0 }
-             } ])
-             .then(function (ignored) {
-               cb();
-             }, cb);
+             } ]);
 
-     });
+     }));
 
 };
