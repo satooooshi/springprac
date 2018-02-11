@@ -14,7 +14,7 @@ module.exports = function () {
       Then = this.Then;
 
   this.World = require("../support/world.js");
-      //Given(/.../,stepHandler)
+
      Given(/^that the order is empty$/, sugar(function () {
       // In Cucumber.js, all the step handler functions are executed with a special object,
       //called the World, as a runtime context.
@@ -37,17 +37,16 @@ module.exports = function () {
      }));
      Then(/^no order items will be shown$/, sugar(function () {
 
-       expect(this.result).to.eventually
-         .have.property('items').that.is.equal(1);
-
+       return expect(this.result).to.eventually
+         .have.property('items').that.is.empty;
      }));
      Then(/^"([^"]*)" will be shown as total price$/,
      sugar(function(expectedTotalPrice, cb) {
-       expect(this.result).to.eventually.have.property('totalPrice')
-        .that.is.equal(Number(expectedTotalPrice))
+       return expect(this.result).to.eventually.have.property('totalPrice')
+        .that.is.equal(Number(expectedTotalPrice));
      }));
      Then(/^there will only be possible to add a beverage$/, sugar(function () {
-       expect(this.result).to.eventually
+       return expect(this.result).to.eventually
          .have.property('actions')
          .that.is.deep.equal([
            {
@@ -56,8 +55,7 @@ module.exports = function () {
              parameters: {
                beverageRef: null,
                quantity: 0 }
-             } ]);
-
+             } ])
      }));
 
 };

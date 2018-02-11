@@ -20,8 +20,10 @@ function simpleDiffReport(cb) {
 module.exports = function (stepHandler) {
      return function () {
        //var cb = arguments[arguments.length - 1];
-       //use simpleDiffReport function
+       //
+       //use simpleDiffReport func for better reporting func.
        var cb = simpleDiffReport(arguments[arguments.length - 1]);
+
        try {
          var result = stepHandler.apply(this, arguments);
          if (result && typeof result.then === 'function') {
