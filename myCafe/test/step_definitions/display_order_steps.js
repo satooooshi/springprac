@@ -38,7 +38,7 @@ module.exports = function () {
      Then(/^no order items will be shown$/, sugar(function () {
 
        expect(this.result).to.eventually
-         .have.property('items').that.is.empty;
+         .have.property('items').that.is.equal(1);
 
      }));
      Then(/^"([^"]*)" will be shown as total price$/,
