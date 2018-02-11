@@ -15,7 +15,7 @@ module.exports = function () {
 
   this.World = require("../support/world.js");
 
-     Given(/^that the order is empty$/, sugar(function () {
+     Given(/^that the order is empty$/, function (cb) {
       // In Cucumber.js, all the step handler functions are executed with a special object,
       //called the World, as a runtime context.
       //So, whenever we reference this inside a function handler,
@@ -37,7 +37,7 @@ module.exports = function () {
        this.result = this.orderSystem.display(this.order.id);
        cb();
      });
-     Then(/^no order items will be shown$/, function (cb) {
+     Then(/^no order items will be shown$/, sugar(function () {
 
        return expect(this.result).to.eventually
          .have.property('items').that.is.empty;
@@ -59,5 +59,33 @@ module.exports = function () {
                quantity: 0 }
              } ])
      }));
+
+
+
+
+
+   this.Given('that the order contains:',
+        sugar(function(orderItemExamples) {
+     this.order = this.orderStorage .alreadyContains(order.withItems(orderItemExamples));
+     this.messages = this.messageStorage.alreadyContains({
+       id: this.order.id,
+       data: []
+     });
+     this.messageStorage.updateWillNotFail();
+   }));
+
+   this.Then('the following order items are shown:',
+          sugar(function(orderItemExamples) {
+        return expect(this.result).to.eventually
+                .have.property('items')
+                .that.is.deep.equal(order.items(orderItemExamples));
+   }));
+   this.Then('there will be possible to:',
+          sugar(function(actionExamples) {
+        var expectedActions = order.actionsForOrderFrom(this.order, actionExamples);
+        return expect(this.result).to.eventually .have.property('actions')
+                .that.have.length(expectedActions.length)
+                .and.that.deep.include.members(expectedActions);
+   }));
 
 };
