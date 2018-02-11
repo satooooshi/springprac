@@ -31,11 +31,13 @@ module.exports = function () {
        //cb.pending()--indicating that the step is not yet ready to be implemented properly.
        //cb(falthy)--indicate that the step is executed without errors
        //cb(truthy), cb.fail(errormessage)--indicating that there was an error or an assertion failed
-     }));
-     When(/^the customer displays the order$/, sugar(function () {
+        cb();
+     });
+     When(/^the customer displays the order$/, function (cb) {
        this.result = this.orderSystem.display(this.order.id);
-     }));
-     Then(/^no order items will be shown$/, sugar(function () {
+       cb();
+     });
+     Then(/^no order items will be shown$/, function (cb) {
 
        return expect(this.result).to.eventually
          .have.property('items').that.is.empty;
