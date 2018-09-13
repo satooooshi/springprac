@@ -1,8 +1,3 @@
-practice test with js
------------------------
+React + Springboot Full stack
 
-1. test/bdd
-2. npm init
-3. npm install --save-dev mocha chai sinon sinon-chai
-
-4. npm install
+https://github.com/shekhargulati/spring-boot-react-maven-starter/blob/master/frontend/pom.xml
