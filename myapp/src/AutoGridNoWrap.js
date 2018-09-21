@@ -27,8 +27,10 @@ you can set the "Grid item zeroMinWidth" property:
 
 
 省略を利用する時のテンプレート(item zeroMinWidth, Typography noWrap)
+<Grid container wrap="nowrap">
 <Grid item xs zeroMinWidth>
     <Typography noWrap>{message}</Typography>
+</Grid>
 </Grid>
 */}
 

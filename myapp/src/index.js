@@ -15,6 +15,8 @@ import FullWidthGrid from './FullWidthGrid';
 import ComplexGrid from './ComplexGrid';
 import InteractiveGrid from "./InteractiveGrid";
 import AutoGridNoWrap from "./AutoGridNoWrap";
+import Landing from './Landing';
+import MediaControlCard from './MediaControlCard';
 
 const fakeAuth = {
     isAuthenticated: false,
@@ -68,6 +70,9 @@ ReactDOM.render(
             <Route exact path='/comp' component={ComplexGrid} />
             <Route exact path='/int' component={InteractiveGrid} />
             <Route exact path='/auto' component={AutoGridNoWrap} />
+
+            <Route exact path='/landing' component={Landing} />
+            <Route exact path='/card' component={MediaControlCard} />
             {/*
             <Route path="/edit" render={(props) => <Edit {...props}/>}/>
             <Route path="/public" render={(props) => <Public {...props}/>}/>

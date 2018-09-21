@@ -168,6 +168,14 @@ class InteractiveGrid extends React.Component {
                         必ず交互にくる。
                   item xsで"一つのアイテム"の幅決める
                   レイアウト(alignItems, direction,justify)だけのGrid containerを作る
+                   <Grid
+                        container
+                        spacing={16}
+                        className={classes.demo}
+                        alignItems={alignItems}
+                        direction={direction}
+                        justify={justify}
+                    >...</Grid>
                   justify 幅のレイアウト
                   alignItemsで縦のレイアウト
                 */}
