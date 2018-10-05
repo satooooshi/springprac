@@ -17,6 +17,8 @@ import InteractiveGrid from "./InteractiveGrid";
 import AutoGridNoWrap from "./AutoGridNoWrap";
 import Landing from './Landing';
 import MediaControlCard from './MediaControlCard';
+import FilledTextFields from './FilledTextFields';
+import SignUpForm from './SignUpForm';
 
 const fakeAuth = {
     isAuthenticated: false,
@@ -70,6 +72,8 @@ ReactDOM.render(
             <Route exact path='/comp' component={ComplexGrid} />
             <Route exact path='/int' component={InteractiveGrid} />
             <Route exact path='/auto' component={AutoGridNoWrap} />
+            <Route exact path='/field' component={FilledTextFields} />
+            <Route exact path='/signup' component={SignUpForm} />
 
             <Route exact path='/landing' component={Landing} />
             <Route exact path='/card' component={MediaControlCard} />
