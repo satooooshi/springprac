@@ -24,6 +24,20 @@ const styles = theme => ({
     },
 });
 
+//action属性
+//formタグに指定する属性で、必ず指定しなければならない
+// フォームの送信ボタンを押して送信されるデータの送信先を指定する
+//method属性
+//formタグに指定する属性で、必須ではない
+// 送信するときの転送方法を指定する
+
+
+/*
+ログイン/ログアウトのエンドポイントはSpringSecurityの設定で自動的に作成される(自分でRestController、RequestMappingする必要はない）
+必要になるまでCSRFのFilterは無効化しておくと吉
+Webページからのユーザ/パスワード送信は”Formデータ”としてPOST送信する
+ */
+
 class Signin extends Component{
 
     constructor(props) {
@@ -58,7 +72,7 @@ class Signin extends Component{
             <div>
                 Hello Im signin.
 
-                <form onSubmit={()=>this.handleSubmit} className={classes.container} noValidate autoComplete="off">
+                <form /*onSubmit={()=>this.handleSubmit}*/ th:action="@{/login}" method="post" className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="standard-name"
                         label="Email"
