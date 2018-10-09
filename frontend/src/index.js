@@ -16,6 +16,7 @@ import ComplexGrid from './ComplexGrid';
 import InteractiveGrid from "./InteractiveGrid";
 import AutoGridNoWrap from "./AutoGridNoWrap";
 import TextFields from './TextFields';
+import Signin from './Signin';
 
 const fakeAuth = {
     isAuthenticated: false,
@@ -47,6 +48,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     />
 );
 
+
+
 class Hello extends Component {
     render() {
         return (
@@ -70,6 +73,7 @@ ReactDOM.render(
             <Route exact path='/int' component={InteractiveGrid} />
             <Route exact path='/auto' component={AutoGridNoWrap} />
             <Route exact path='/text' component={TextFields} />
+            <Route exact path='/signin' component={Signin} />
             {/*
             <Route path="/edit" render={(props) => <Edit {...props}/>}/>
             <Route path="/public" render={(props) => <Public {...props}/>}/>
